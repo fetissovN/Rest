@@ -20,9 +20,9 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
         servletContext.addListener(new ContextLoaderListener(ctx));
 
-        ServletRegistration.Dynamic servet = servletContext.addServlet(DISPATCHER, new DispatcherServlet(ctx));
-        servet.addMapping("/");
-        servet.setLoadOnStartup(1);
+        ServletRegistration.Dynamic serlvet = servletContext.addServlet(DISPATCHER, new DispatcherServlet(ctx));
+        serlvet.addMapping("/");
+        serlvet.setLoadOnStartup(1);
 
     }
 }
