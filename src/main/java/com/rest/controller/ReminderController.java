@@ -1,18 +1,42 @@
 package com.rest.controller;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
-@RequestMapping("/remind")
+import com.rest.entity.Remind;
+import com.rest.repository.RemindRepository;
+import com.rest.service.ReminderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
+
+@RestController
 public class ReminderController {
 
-    @RequestMapping(value = "/get",method = RequestMethod.GET)
+    @Autowired
+    private ReminderServiceImpl service;
+
+    @RequestMapping(value = "/reminders",method = RequestMethod.GET)
     @ResponseBody
-    public String getReminder(ModelMap model){
-        return "May reminder";
+    public List<Remind> getAllReminders(){
+        return service.getAll();
+    }
+
+    @RequestMapping(value = "/reminders/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Remind getReminder(@PathVariable("id") long id){
+        return service.getById(id);
+    }
+
+
+    @RequestMapping(value = "/reminders",method = RequestMethod.POST)
+    @ResponseBody
+    public Remind saveReminder(@RequestBody Remind remind){
+        return service.save(remind);
+    }
+
+    @RequestMapping(value = "/reminders/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public void delete(@PathVariable("id") long id){
+        service.delete(id);
     }
 }
